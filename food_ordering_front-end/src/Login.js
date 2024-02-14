@@ -58,19 +58,20 @@ const Login = ({ setUserData }) => {
     {/* 登入會員 post*/ }
     const LoginUserAction = () => {
         setLoginError(false);
-        axios.post("http://localhost:8080/userController/queryUser", {
+        axios.post("http://localhost:8080/userController/LoginUser", {
             username: `${useData.username}`,
             password: `${useData.password}`
         })
             .then(response => {
                 if (response.data !== "") {
                     setUserData(response.data);
-                    console.log(response);
+                    // console.log(response);
                 } else {
                     setLoginError(true);// 登入失败，设置状态为true
                 }
             })
             .catch(error => {
+                console.log(error);
                 console.error('Error:', error);
                 setLoginError(true); // 登入失败，设置状态为true
             });
@@ -78,10 +79,10 @@ const Login = ({ setUserData }) => {
     {/* 新增會員 post*/ }
     const addUserAction = () => {
         setaddError(false);
-        console.log(useData)
+        // console.log(useData)
         axios.post("http://localhost:8080/userController/addUser", useData)
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 if (response.data == false) {
                     setaddError(true);// 新增會員失败，设置状态为true
                 }
@@ -107,11 +108,11 @@ const Login = ({ setUserData }) => {
                             <form>
                                 <div class="mb-3">
                                     <label for="username" class="form-label">帳號 :</label>
-                                    <input type="text" class="form-control" id="username" name="username" onChange={(e) => inputUserData(e)} />
+                                    <input type="text" class="form-control" id="username" name="username" required onChange={(e) => inputUserData(e)} />
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">密碼 :</label>
-                                    <input type="password" class="form-control" id="password" name="password" onChange={(e) => inputUserData(e)} />
+                                    <input type="password" class="form-control" id="password" name="password" required onChange={(e) => inputUserData(e)} />
                                 </div>
                             </form>
                         </div>
@@ -153,22 +154,22 @@ const Login = ({ setUserData }) => {
                             <form>
                                 <div class="mb-3">
                                     <label for="name" class="form-label">名字 :</label>
-                                    <input type="text" class="form-control" id="name" name="name" onChange={(e) => inputUserData(e)} />
+                                    <input type="text" class="form-control" id="name" name="name" required onChange={(e) => inputUserData(e)} />
                                     {formErrors.name && <p className="text-danger">名字不能為空</p>}
                                 </div>
                                 <div class="mb-3">
                                     <label for="username" class="form-label">帳號 :</label>
-                                    <input type="text" class="form-control" id="username" name="username" onChange={(e) => inputUserData(e)} />
+                                    <input type="text" class="form-control" id="username" name="username" required onChange={(e) => inputUserData(e)} />
                                     {formErrors.username && <p className="text-danger">帳號不能為空</p>}
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">密碼 :</label>
-                                    <input type="password" class="form-control" id="password" name="password" onChange={(e) => inputUserData(e)} />
+                                    <input type="password" class="form-control" id="password" name="password" required onChange={(e) => inputUserData(e)} />
                                     {formErrors.password && <p className="text-danger">密碼不能為空</p>}
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">電子郵件 :</label>
-                                    <input type="text" class="form-control" id="email" name="email" onChange={(e) => inputUserData(e)} />
+                                    <input type="text" class="form-control" id="email" name="email" required onChange={(e) => inputUserData(e)} />
                                     {formErrors.email && <p className="text-danger">電子郵件不能為空</p>}
                                 </div>
                                 <div class="mb-3">
