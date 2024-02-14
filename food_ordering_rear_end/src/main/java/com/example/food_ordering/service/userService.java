@@ -10,5 +10,7 @@ public interface userService {
 
     userEntity getUser(userEntity userEntity);
 
+    userEntity updateUser(userEntity userEntity);
+
 
 }

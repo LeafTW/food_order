@@ -3,6 +3,7 @@ package com.example.food_ordering.service.impl;
 import com.example.food_ordering.entity.userEntity;
 import com.example.food_ordering.repository.userRepository;
 import com.example.food_ordering.service.userService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,11 @@ public class userServiceimpl implements userService {
                         byUsername.getPassword().equals(user.getPassword()) ?
                         byUsername :null
                 : null;
+    }
+
+    @Override
+    public userEntity updateUser(userEntity userEntity) {
+        userEntity user = repository.save(userEntity);
+        return user;
     }
 }
