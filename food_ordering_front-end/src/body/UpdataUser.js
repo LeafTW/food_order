@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Body = ({ setUserData, userData }) => {
+const updataUser = ({ setUserData, userData }) => {
 
     {/* 偵測到input更新變數*/ }
     const handleChange = e => {
@@ -13,9 +13,17 @@ const Body = ({ setUserData, userData }) => {
     };
 
     {/* 更新會員 post*/ }
+    const deleteUser =()=>{
+        setUserData(null);
+        axios.get(`http://192.168.74.131:8080/userController/deleteUser/${userData.username}`)
+            .catch(error => {
+                console.error('Error updating user profile:', error);
+            });
+    }
+    {/* 更新會員 post*/ }
     const handleSubmit = e => {
         e.preventDefault();
-        axios.post('http://localhost:8080/userController/updateUser', userData) // 假设这是您后端提供的更新接口
+        axios.post('http://192.168.74.131:8080/userController/updateUser', userData)
             .then(response => {
                 // console.log('User profile updated successfully:', response);
                 setUserData(response.data)
@@ -52,9 +60,10 @@ const Body = ({ setUserData, userData }) => {
                     <input type="tel" className="form-control" id="phone" name="phone" value={userData.phone} onChange={handleChange} />
                 </div>
                 <button type="submit" className="btn btn-primary">更新资料</button>
+                <button type="button" class="btn btn-danger" onClick={deleteUser} >刪除會員</button>
             </form>
         </div>
     );
 }
 
-export default Body;
+export default updataUser;
