@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 const Card = (props) => {
-    let { id, name, price, item } = props.tour;
+    let { id, name, price, item } = props.cardData;
     return (
 
         <div class="col-sm-6 col-md-3">
