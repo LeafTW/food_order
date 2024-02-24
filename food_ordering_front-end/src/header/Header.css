@@ -1,5 +1,6 @@
 /* toolbar.css */
 .toolbar {
+    position: relative; /* 设置相对定位 */
     display: flex;
     justify-content: space-between;
     align-items: center;

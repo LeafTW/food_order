@@ -12,5 +12,6 @@ public interface userService {
 
     userEntity updateUser(userEntity userEntity);
 
+    void deleteUser(String username);
 
 }

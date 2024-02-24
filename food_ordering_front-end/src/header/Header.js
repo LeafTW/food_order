@@ -2,15 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Login from '../Login.js';
 import './Header.css';
 
-
 const Toolbar = ({ setUserData ,userData}) => {
-
 
     const logout = () => {
         // 清除用户数据或执行其他登出操作
         setUserData(null);
     };
-
 
     return (
         <div>
@@ -44,12 +41,10 @@ const Toolbar = ({ setUserData ,userData}) => {
                         登入
                     </button>
                 )}
-
             </div>
 
             {/* 登入會員彈跳視窗 */}
             <div><Login setUserData={setUserData} /></div>
-
         </div>
 
     );

@@ -5,11 +5,12 @@ import com.example.food_ordering.service.userService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/userController")
-@CrossOrigin(maxAge=3600,allowedHeaders = "*")//開放外部ip讀取資料權限
+//@CrossOrigin(maxAge=3600,allowedHeaders = "*")//開放外部ip讀取資料權限
 public class userController {
 
     @Autowired
@@ -26,11 +27,12 @@ public class userController {
     }
 
     /**
-     * 檢查是否登入成功
+     * 檢查登入
      */
     @PostMapping("/LoginUser")
     public userEntity LoginUser(@RequestBody userEntity user){
         userEntity getuser = userService.getUser(user);
+        System.out.println(getuser);
         return getuser;
     }
 
@@ -41,5 +43,14 @@ public class userController {
     public userEntity updateUser(@RequestBody userEntity user){
         userEntity userEntity = userService.updateUser(user);
         return userEntity;
+    }
+
+    /**
+     * 依據username刪除帳號
+     */
+    @GetMapping("/deleteUser/{username}")
+    public void deleteUser(@PathVariable String username) {
+        System.out.println(username);
+        userService.deleteUser(username);
     }
 }

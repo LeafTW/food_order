@@ -6,6 +6,7 @@ import com.example.food_ordering.service.userService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,10 +36,16 @@ public class userServiceimpl implements userService {
                         byUsername :null
                 : null;
     }
-
+    /** 更新帳號 */
     @Override
     public userEntity updateUser(userEntity userEntity) {
         userEntity user = repository.save(userEntity);
         return user;
+    }
+    /** 刪除帳號 */
+    @Override
+    @Transactional //確保方法在事務中執行。將該註解添加到你的Service方法上，以確保刪除操作發生在事務內部
+    public void deleteUser(String username) {
+        repository.deleteByUsername(username);
     }
 }

@@ -13,4 +13,6 @@ public interface userRepository extends JpaRepository<userEntity,Long> {
     userEntity save(userEntity user);
     public userEntity findByUsernameAndPassword(String username,String password);
 
+    // 根据用户ID删除用户
+    void deleteByUsername(String username);
 }
