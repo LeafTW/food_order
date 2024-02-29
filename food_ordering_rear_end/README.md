@@ -1,65 +1,63 @@
-## Food Ordering System API 使用指南
+# 訂餐系統
 
-此應用程式提供了一系列 API，用於處理食物訂購系統的相關功能。以下是每個端點的功能和使用方式：
+這個項目是一個食物訂購系統的後端，提供了管理餐點、購物車和使用者等功能。以下是主要的控制器和服務介紹：
 
-### 1. 新增會員
+## mealsController
 
-- **URL:** `/userController/addUser`
-- **HTTP 方法:** POST
-- **描述:** 新增一個新的會員到系統中。
-- **請求體:** 傳入 JSON 格式的 `userEntity` 對象，其中包含新會員的相關資訊。
-- **回應:** 若成功新增會員，則回傳 `true`；否則回傳 `false`。
+這個控制器管理餐點相關的操作，包括了以下功能：
 
-範例請求：
-```json
-POST /userController/addUser
-Content-Type: application/json
+- **取得Meals跟item對應得item項目值**：
+    - `GET /mealsList/findItemCountByMeals`
+    - 返回一個包含了item項目值的列表。
 
-{
-  "username": "example_user",
-  "password": "example_password",
-  "email": "user@example.com"
-}
-```
+- **篩選Meals對應的item並回傳Page**：
+    - `GET /mealsList/findAllByItem/{pageNo}/{item}`
+    - 返回一個指定頁面的mealsEntity列表。
 
-範例回應：
-```json
-true
-```
+- **新增cart**：
+    - `POST /mealsList/insertIntoCart`
+    - 添加一個新的購物車項目。
 
-### 2. 檢查是否登入成功
+- **查詢cart**：
+    - `POST /mealsList/cartEntityByUsername/{username}`
+    - 返回指定用戶的購物車列表。
 
-- **URL:** `/userController/queryUser`
-- **HTTP 方法:** POST
-- **描述:** 檢查用戶是否成功登入系統。
-- **請求體:** 傳入 JSON 格式的 `userEntity` 對象，其中包含用戶登入所需的資訊。
-- **回應:** 回傳成功登入的用戶資訊，若未成功則回傳空值。
+- **刪除cart**：
+    - `GET /mealsList/deleteCartEntityById/{id}`
+    - 刪除指定ID的購物車項目。
 
-範例請求：
-```json
-POST /userController/queryUser
-Content-Type: application/json
+- **更新cart quantity數量**：
+    - `POST /mealsList/updateCartEntityById/{quantity}/{id}`
+    - 更新指定ID的購物車項目的數量。
 
-{
-  "username": "example_user",
-  "password": "example_password"
-}
-```
+## userController
 
-範例回應：
-```json
-{
-  "userId": 1,
-  "username": "example_user",
-  "email": "user@example.com"
-}
-```
+這個控制器管理使用者相關的操作，包括了以下功能：
 
-### 注意事項
+- **新增會員**：
+    - `POST /userController/addUser`
+    - 添加一個新的使用者。
 
-- 所有的請求和回應都是以 JSON 格式進行。
-- 若要存取這些 API，請確保已在 HTTP 標頭中設定正確的內容類型（`Content-Type: application/json`）。
-- 請注意身份驗證和授權，以確保系統安全。
-- 如需進一步了解每個端點的詳細內容，請參閱相應的控制器類。
+- **檢查登入**：
+    - `POST /userController/LoginUser`
+    - 檢查使用者登入信息。
 
-以上是使用此 Food Ordering System API 的指南。如果有任何疑問或需要進一步協助，請隨時聯繫我們的開發團隊。
+- **更新會員資料**：
+    - `POST /userController/updateUser`
+    - 更新使用者資料。
+
+- **依據username刪除帳號**：
+    - `GET /userController/deleteUser/{username}`
+    - 刪除指定username的使用者帳號。
+
+## 使用技術
+
+這個項目使用了Spring Boot框架來構建RESTful API，以及Spring的相關模組，包括Spring MVC和Spring Data JPA。此外，還使用了Jakarta Servlet來處理HTTP請求和響應。
+
+## 貢獻
+
+如果您發現任何問題或者有改進的建議，請隨時提交issue或者pull request。我們歡迎您的貢獻！
+
+## 作者
+
+這個項目的作者是 [Leaf](https://github.com/LeafTW/food_order)。
