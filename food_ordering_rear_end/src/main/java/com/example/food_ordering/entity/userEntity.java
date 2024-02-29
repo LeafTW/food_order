@@ -3,10 +3,12 @@ package com.example.food_ordering.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "user")
 public class userEntity {
 

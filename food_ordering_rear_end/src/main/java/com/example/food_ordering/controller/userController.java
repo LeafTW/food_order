@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/userController")
-//@CrossOrigin(maxAge=3600,allowedHeaders = "*")//開放外部ip讀取資料權限
+@CrossOrigin(maxAge=3600,allowedHeaders = "*")//開放外部ip讀取資料權限
 public class userController {
 
     @Autowired
@@ -50,7 +50,6 @@ public class userController {
      */
     @GetMapping("/deleteUser/{username}")
     public void deleteUser(@PathVariable String username) {
-        System.out.println(username);
         userService.deleteUser(username);
     }
 }
