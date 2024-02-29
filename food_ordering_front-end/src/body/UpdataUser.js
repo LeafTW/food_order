@@ -12,10 +12,10 @@ const updataUser = ({ setUserData, userData }) => {
         }));
     };
 
-    {/* 更新會員 post*/ }
+    {/* 刪除會員 get*/ }
     const deleteUser =()=>{
         setUserData(null);
-        axios.get(`http://192.168.74.131:8080/userController/deleteUser/${userData.username}`)
+        axios.get(`http://localhost:8080/userController/deleteUser/${userData.username}`)
             .catch(error => {
                 console.error('Error updating user profile:', error);
             });
@@ -23,7 +23,7 @@ const updataUser = ({ setUserData, userData }) => {
     {/* 更新會員 post*/ }
     const handleSubmit = e => {
         e.preventDefault();
-        axios.post('http://192.168.74.131:8080/userController/updateUser', userData)
+        axios.post('http://localhost:8080/userController/updateUser', userData)
             .then(response => {
                 // console.log('User profile updated successfully:', response);
                 setUserData(response.data)

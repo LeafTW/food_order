@@ -65,13 +65,13 @@ const Login = ({ setUserData }) => {
             .then(response => {
                 if (response.data !== "") {
                     setUserData(response.data);
-                    // console.log(response);
+                    // console.log(response.data.username);
                 } else {
                     setLoginError(true);// 登入失败，设置状态为true
                 }
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
                 console.error('Error:', error);
                 setLoginError(true); // 登入失败，设置状态为true
             });
@@ -79,7 +79,7 @@ const Login = ({ setUserData }) => {
     {/* 新增會員 post*/ }
     const addUserAction = () => {
         setaddError(false);
-        // console.log(useData)
+        console.log(useData)
         axios.post("http://localhost:8080/userController/addUser", useData)
             .then(response => {
                 // console.log(response)

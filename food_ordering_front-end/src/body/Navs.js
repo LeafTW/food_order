@@ -6,6 +6,7 @@ const Navs = (props) => {
     //解析page
     const { content, first, last, number, totalPages } = props.MealsPage ?? {};
 
+
     const pageItems = [];
 
     const clickPage = (event, pageIndex) => {
@@ -46,7 +47,7 @@ const Navs = (props) => {
             <div className={`tab-pane fade show ${index === 0 && "active"}`} id={`target_${ItemData.item}`} role="tabpanel" aria-labelledby="nav-home-tab">
                 {/* 分頁清單 */}
                 <div className='row'>
-                    {content && content.map(cardData => <Card cardData={cardData} />)}
+                    {content && content.map(cardData => <Card cardData={cardData}  cartPostChange={props.cartPostChange}/>)}
                 </div>
                 {/* 分頁資訊 */}
                 <div className="d-flex justify-content-center">
