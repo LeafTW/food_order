@@ -23,7 +23,7 @@
     - 返回指定用戶的購物車列表。
 
 - **刪除cart**：
-    - `GET /mealsList/deleteCartEntityById/{id}`
+    - `Delete /mealsList/deleteCartEntityById/{id}`
     - 刪除指定ID的購物車項目。
 
 - **更新cart quantity數量**：
@@ -47,7 +47,7 @@
     - 更新使用者資料。
 
 - **依據username刪除帳號**：
-    - `GET /userController/deleteUser/{username}`
+    - `Delete /userController/deleteUser/{username}`
     - 刪除指定username的使用者帳號。
 
 - **取得 user Session**：
