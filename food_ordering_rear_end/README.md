@@ -50,6 +50,14 @@
     - `GET /userController/deleteUser/{username}`
     - 刪除指定username的使用者帳號。
 
+- **取得 user Session**：
+  - `GET /userController/getSession`
+  - 返回當前用戶的 session 資訊。
+
+- **登出 刪除 user Session**：
+  - `PUT /userController/logout`
+  - 登出當前用戶並刪除 session 資訊。
+
 ## 使用技術
 
 這個項目使用了Spring Boot框架來構建RESTful API，以及Spring的相關模組，包括Spring MVC和Spring Data JPA。此外，還使用了Jakarta Servlet來處理HTTP請求和響應。
