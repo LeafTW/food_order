@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "cart")
-public class cartEntity {
+public class CartEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class cartEntity {
     @Column
     private  String username;
 
-    public cartEntity() {
+    public CartEntity() {
     }
 
 }

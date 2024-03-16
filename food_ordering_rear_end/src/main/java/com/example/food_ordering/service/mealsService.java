@@ -1,23 +1,22 @@
 package com.example.food_ordering.service;
 
-import com.example.food_ordering.entity.cartEntity;
-import com.example.food_ordering.entity.itemEntity;
-import com.example.food_ordering.entity.mealsEntity;
+import com.example.food_ordering.entity.CartEntity;
+import com.example.food_ordering.entity.ItemEntity;
+import com.example.food_ordering.entity.MealsEntity;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
-import java.util.Map;
 
-public interface mealsService {
+public interface MealsService {
 
 
-    void insertIntoCart(cartEntity e);
+    void insertIntoCart(CartEntity e);
 
-    List<itemEntity> findItemWithCount();
+    List<ItemEntity> findItemWithCount();
 
-    public Page<mealsEntity> findItemCountByItem(Integer pageNo, Character item);
+    public Page<MealsEntity> findItemCountByItem(Integer pageNo, Character item);
 
-    List<cartEntity> findCartEntityByUsername(String username);
+    List<CartEntity> findCartEntityByUsername(String username);
 
     void deleteCartEntityById(Long id);
 

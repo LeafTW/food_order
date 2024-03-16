@@ -1,24 +1,21 @@
 package com.example.food_ordering.service.impl;
 
-import com.example.food_ordering.entity.userEntity;
-import com.example.food_ordering.repository.userRepository;
-import com.example.food_ordering.service.userService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.food_ordering.entity.UserEntity;
+import com.example.food_ordering.repository.UserRepository;
+import com.example.food_ordering.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
-public class userServiceimpl implements userService {
+public class UserServiceimpl implements UserService {
 
     @Autowired
-    private userRepository repository;
+    private UserRepository repository;
 
     /** 新增會員 */
     @Override
-    public boolean addUser(userEntity user) {
+    public boolean addUser(UserEntity user) {
         if (this.getUser(user) == null){
 //            repository.addUser(user.getName(),user.getUsername(),user.getPassword(),user.getEmail(),user.getPhone());
             repository.save(user);
@@ -28,18 +25,20 @@ public class userServiceimpl implements userService {
     }
     /** 查詢帳號 */
     @Override
-    public userEntity getUser(userEntity user) {
-        userEntity byUsername = repository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
-        return byUsername != null ?
-                byUsername.getUsername().equals(user.getUsername()) &&
-                        byUsername.getPassword().equals(user.getPassword()) ?
-                        byUsername :null
-                : null;
+    public UserEntity getUser(UserEntity user) {
+        UserEntity byUsername = repository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
+        if (byUsername != null){
+            if(byUsername.getUsername().equals(user.getUsername()) &&
+                    byUsername.getPassword().equals(user.getPassword())){
+                return byUsername;
+            }return null;
+        }
+        return  null;
     }
     /** 更新帳號 */
     @Override
-    public userEntity updateUser(userEntity userEntity) {
-        userEntity user = repository.save(userEntity);
+    public UserEntity updateUser(UserEntity userEntity) {
+        UserEntity user = repository.save(userEntity);
         return user;
     }
     /** 刪除帳號 */

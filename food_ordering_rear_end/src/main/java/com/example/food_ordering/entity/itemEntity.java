@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Table(name = "item")
-public class itemEntity {
+public class ItemEntity {
     /**建值*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +23,13 @@ public class itemEntity {
     @Column
     private String item_name;
 
-    public itemEntity(Long id, Character item, String item_name) {
+    public ItemEntity(Long id, Character item, String item_name) {
         this.id = id;
         this.item = item;
         this.item_name = item_name;
     }
 
-    public itemEntity() {
+    public ItemEntity() {
 
     }
 }

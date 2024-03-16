@@ -1,30 +1,29 @@
 package com.example.food_ordering.service.impl;
 
-import com.example.food_ordering.entity.cartEntity;
-import com.example.food_ordering.entity.itemEntity;
-import com.example.food_ordering.entity.mealsEntity;
-import com.example.food_ordering.repository.mealsRepository;
-import com.example.food_ordering.service.mealsService;
+import com.example.food_ordering.entity.CartEntity;
+import com.example.food_ordering.entity.ItemEntity;
+import com.example.food_ordering.entity.MealsEntity;
+import com.example.food_ordering.repository.MealsRepository;
+import com.example.food_ordering.service.MealsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class mealsServiceimpl implements mealsService {
+public class MealsServiceimpl implements MealsService {
 
     private static final Integer CARD_PAGE_COUNT = 8;
     @Autowired
-    mealsRepository mealsRepository;
+    MealsRepository mealsRepository;
 
 
     @Override
-    public Page<mealsEntity> findItemCountByItem(Integer pageNo, Character item) {
+    public Page<MealsEntity> findItemCountByItem(Integer pageNo, Character item) {
         PageRequest page = PageRequest.of(pageNo, CARD_PAGE_COUNT);
-        Page<mealsEntity> allByItem = mealsRepository.findAllByItem(item, page);
+        Page<MealsEntity> allByItem = mealsRepository.findAllByItem(item, page);
         return allByItem;
     }
 
@@ -32,8 +31,8 @@ public class mealsServiceimpl implements mealsService {
      * cart query
      **/
     @Override
-    public List<cartEntity> findCartEntityByUsername(String username) {
-        List<cartEntity> cartEntityByUsername;
+    public List<CartEntity> findCartEntityByUsername(String username) {
+        List<CartEntity> cartEntityByUsername;
         if (!username.equals("undefined")) {
             cartEntityByUsername = mealsRepository.findCartEntityByUsername(username);
         } else {
@@ -54,12 +53,12 @@ public class mealsServiceimpl implements mealsService {
     }
 
     @Override
-    public void insertIntoCart(cartEntity c) {
+    public void insertIntoCart(CartEntity c) {
         mealsRepository.save(c);
     }
 
     @Override
-    public List<itemEntity> findItemWithCount() {
+    public List<ItemEntity> findItemWithCount() {
         return mealsRepository.findItemWithCount();
     }
 

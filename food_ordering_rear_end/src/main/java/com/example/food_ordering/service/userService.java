@@ -1,16 +1,14 @@
 package com.example.food_ordering.service;
 
-import com.example.food_ordering.entity.userEntity;
+import com.example.food_ordering.entity.UserEntity;
 
-import java.util.List;
+public interface UserService {
 
-public interface userService {
+    boolean addUser(UserEntity user);
 
-    boolean addUser(userEntity user);
+    UserEntity getUser(UserEntity userEntity);
 
-    userEntity getUser(userEntity userEntity);
-
-    userEntity updateUser(userEntity userEntity);
+    UserEntity updateUser(UserEntity userEntity);
 
     void deleteUser(String username);
 
