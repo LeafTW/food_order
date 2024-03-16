@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Table(name = "user")
-public class UserEntity {
+public class userEntity {
 
     /**建值*/
     @Id
