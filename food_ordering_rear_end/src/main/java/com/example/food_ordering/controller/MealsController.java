@@ -2,7 +2,7 @@ package com.example.food_ordering.controller;
 
 import com.example.food_ordering.entity.CartEntity;
 import com.example.food_ordering.entity.ItemEntity;
-import com.example.food_ordering.entity.mealsEntity;
+import com.example.food_ordering.entity.MealsEntity;
 import com.example.food_ordering.service.MealsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,8 +33,8 @@ public class MealsController {
      * 篩選Meals對應的item並回傳Page
      */
     @GetMapping("/findAllByItem/{pageNo}/{item}")
-    ResponseEntity<Page<mealsEntity>> findts(@PathVariable Integer pageNo, @PathVariable Character item) {
-        Page<mealsEntity> itemCountByItem = mealsService.findItemCountByItem(pageNo, item);
+    ResponseEntity<Page<MealsEntity>> findts(@PathVariable Integer pageNo, @PathVariable Character item) {
+        Page<MealsEntity> itemCountByItem = mealsService.findItemCountByItem(pageNo, item);
         return ResponseEntity.ok(itemCountByItem);
     }
 
@@ -63,7 +63,7 @@ public class MealsController {
     /**
      * 刪除cart
      */
-    @GetMapping("/deleteCartEntityById/{id}")
+    @DeleteMapping("/deleteCartEntityById/{id}")
     public ResponseEntity<Boolean> deleteCartEntityById(@PathVariable Long id) {
         try {
             mealsService.deleteCartEntityById(id);

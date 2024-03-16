@@ -1,14 +1,14 @@
 package com.example.food_ordering.service;
 
-import com.example.food_ordering.entity.userEntity;
+import com.example.food_ordering.entity.UserEntity;
 
 public interface UserService {
 
-    boolean addUser(userEntity user);
+    boolean addUser(UserEntity user);
 
-    userEntity getUser(userEntity userEntity);
+    UserEntity getUser(UserEntity UserEntity);
 
-    userEntity updateUser(userEntity userEntity);
+    UserEntity updateUser(UserEntity UserEntity);
 
     void deleteUser(String username);
 

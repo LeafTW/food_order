@@ -2,7 +2,7 @@ package com.example.food_ordering.repository;
 
 import com.example.food_ordering.entity.CartEntity;
 import com.example.food_ordering.entity.ItemEntity;
-import com.example.food_ordering.entity.mealsEntity;
+import com.example.food_ordering.entity.MealsEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,18 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface MealsRepository extends JpaRepository<mealsEntity, Long> {
+public interface MealsRepository extends JpaRepository<MealsEntity, Long> {
 
     /**
      * item join meals query
      **/
-    @Query("select DISTINCT new com.example.food_ordering.entity.ItemEntity(i.id, i.item ,i.item_name) from ItemEntity i join mealsEntity m on i.item = m.item ")
+    @Query("select DISTINCT new com.example.food_ordering.entity.ItemEntity(i.id, i.item ,i.item_name) from ItemEntity i join MealsEntity m on i.item = m.item ")
     public List<ItemEntity> findItemWithCount();
 
     /**
      * item query
      **/
-    public Page<mealsEntity> findAllByItem(Character item, Pageable pageable);
+    public Page<MealsEntity> findAllByItem(Character item, Pageable pageable);
 
     /**
      * cart add
