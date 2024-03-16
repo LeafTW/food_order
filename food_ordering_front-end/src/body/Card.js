@@ -12,12 +12,12 @@ const Card = (props) => {
 
     return (
 
-        <div class="col-sm-6 col-md-3">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">{name}</h5>
-                    <p class="card-text">{price}</p>
-                    <a href="#" onClick={(event)=>setcart(event,name,price)}class="btn btn-primary">加入購物車</a>
+        <div className="col-sm-6 col-md-3" >
+            <div className="card mb-3">
+                <div className="card-body">
+                    <h5 className="card-title">{name}</h5>
+                    <p className="card-text">{price}</p>
+                    <a href="#" onClick={(event)=>setcart(event,name,price)}className="btn btn-primary">加入購物車</a>
                 </div>
             </div>
         </div>

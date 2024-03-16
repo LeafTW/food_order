@@ -35,7 +35,7 @@ const Navs = (props) => {
     //導覽與頁籤內容(按鈕)
     const createNavButton = (ItemData, index) => {
         return (
-            <button className={`nav-link ${index === 0 && "active"}`} id={`nav-${ItemData.item}`} data-bs-toggle="tab" data-bs-target={`#target_${ItemData.item}`}
+            <button className={`nav-link ${index === 0 && "active"}`} id={`nav-${ItemData.item}`} key={index} data-bs-toggle="tab" data-bs-target={`#target_${ItemData.item}`}
                 type="button" role="tab" onClick={(event) => clickItemPage(event,ItemData.item)}>{ItemData.item_name}</button>
         )
     }
@@ -44,10 +44,10 @@ const Navs = (props) => {
     const createNavShow = (ItemData, index) => {
         // console.log(props.MealsPage.content.name);
         return (
-            <div className={`tab-pane fade show ${index === 0 && "active"}`} id={`target_${ItemData.item}`} role="tabpanel" aria-labelledby="nav-home-tab">
+            <div className={`tab-pane fade show ${index === 0 && "active"}`} id={`target_${ItemData.item}`} key={index} role="tabpanel" aria-labelledby="nav-home-tab">
                 {/* 分頁清單 */}
                 <div className='row'>
-                    {content && content.map(cardData => <Card cardData={cardData}  cartPostChange={props.cartPostChange}/>)}
+                    {content && content.map(cardData => <Card key={cardData.id} cardData={cardData}  cartPostChange={props.cartPostChange}/>)}
                 </div>
                 {/* 分頁資訊 */}
                 <div className="d-flex justify-content-center">

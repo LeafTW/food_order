@@ -45,7 +45,7 @@ const updataUser = ({ setUserData, userData }) => {
                 <div className="mb-3">
                     <label htmlFor="username" className="form-label">用戶名：</label>
                     <input type="text" className="form-control" id="username" name="username" value={userData.username} placeholder="Disabled input here..." disabled />
-                    <span id="passwordHelpInline" class="form-text"> 用戶名不可更改</span>
+                    <span id="passwordHelpInline" className="form-text"> 用戶名不可更改</span>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">密码：</label>
@@ -60,7 +60,7 @@ const updataUser = ({ setUserData, userData }) => {
                     <input type="tel" className="form-control" id="phone" name="phone" value={userData.phone} onChange={handleChange} />
                 </div>
                 <button type="submit" className="btn btn-primary">更新资料</button>
-                <button type="button" class="btn btn-danger" onClick={deleteUser} >刪除會員</button>
+                <button type="button" className="btn btn-danger" onClick={deleteUser} >刪除會員</button>
             </form>
         </div>
     );

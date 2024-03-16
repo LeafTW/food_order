@@ -9,6 +9,8 @@ export const Cart = (props) => {
     const { username } = props.userData ?? {};
     //購物車清單html
     const cartDataArray = [];
+    //購物車總價格
+    let totalPrice=0;
 
     //Quantity數量觸發處理
     const handleQuantityChange = (event, product) => {
@@ -63,29 +65,30 @@ export const Cart = (props) => {
                 console.log(response.data);
                 setCartData(response.data);
             });
-    }, []);
+    }, [username]);
 
 
     cartData && cartData.map(data => {
+        totalPrice=data.price * data.quantity +totalPrice;
         cartDataArray.push(
-            <div class="product">
-                <div class="product-image">
+            <div className="product" key={data.id}>
+                <div className="product-image">
                     <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg" />
                 </div>
-                <div class="product-details">
-                    <div class="product-title">{data.name}</div>
-                    {/* <p class="product-description">The best dog bones of all time. Holy crap. Your dog will be begging for these things! I got curious once and ate one myself. I'm a fan.</p> */}
+                <div className="product-details">
+                    <div className="product-title">{data.name}</div>
+                    {/* <p className="product-description">The best dog bones of all time. Holy crap. Your dog will be begging for these things! I got curious once and ate one myself. I'm a fan.</p> */}
                 </div>
-                <div class="product-price">{data.price}</div>
-                <div class="product-quantity">
+                <div className="product-price">{data.price}</div>
+                <div className="product-quantity">
                     <input type="number" value={data.quantity} min="1" max="99"  onChange={(event) => handleQuantityChange(event, data)} />
                 </div>
-                <div class="product-removal">
-                    <button class="remove-product" onClick={e=>CartDelete(e,data.id)}>
+                <div className="product-removal">
+                    <button className="remove-product" onClick={e=>CartDelete(e,data.id)}>
                         Remove
                     </button>
                 </div>
-                <div class="product-line-price">{data.price * data.quantity}</div>
+                <div className="product-line-price">{data.price * data.quantity}</div>
             </div>
         )
 
@@ -97,39 +100,27 @@ export const Cart = (props) => {
         <div className='cartBody'>
             <h1 className='cartH1'>購物車</h1>
 
-            <div class="shopping-cart">
+            <div className="shopping-cart">
 
-                <div class="column-labels">
-                    <label class="product-image cartLabel">Image</label>
-                    <label class="product-details cartLabel">Product</label>
-                    <label class="product-price cartLabel">Price</label>
-                    <label class="product-quantity cartLabel">Quantity</label>
-                    <label class="product-removal cartLabel">Remove</label>
-                    <label class="product-line-price cartLabel">Total</label>
+                <div className="column-labels">
+                    <label className="product-image cartLabel">Image</label>
+                    <label className="product-details cartLabel">Product</label>
+                    <label className="product-price cartLabel">Price</label>
+                    <label className="product-quantity cartLabel">Quantity</label>
+                    <label className="product-removal cartLabel">Remove</label>
+                    <label className="product-line-price cartLabel">Total</label>
                 </div>
 
                 {cartDataArray}
 
-                <div class="totals">
-                    <div class="totals-item">
-                        <label className='cartLabel'>Subtotal</label>
-                        <div class="totals-value" id="cart-subtotal">71.97</div>
-                    </div>
-                    <div class="totals-item">
-                        <label className='cartLabel'>Tax (5%)</label>
-                        <div class="totals-value" id="cart-tax">3.60</div>
-                    </div>
-                    <div class="totals-item">
-                        <label className='cartLabel'>Shipping</label>
-                        <div class="totals-value" id="cart-shipping">15.00</div>
-                    </div>
-                    <div class="totals-item totals-item-total">
-                        <label className='cartLabel'>Grand Total</label>
-                        <div class="totals-value" id="cart-total">90.57</div>
+                <div className="totals">
+                    <div className="totals-item totals-item-total">
+                        <label className='cartLabel'>Total</label>
+                        <div className="totals-value" id="cart-total">{totalPrice}</div>
                     </div>
                 </div>
 
-                <button class="checkout">Checkout</button>
+                <button className="checkout">送出</button>
 
             </div>
         </div>
