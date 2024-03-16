@@ -1,6 +1,6 @@
 package com.example.food_ordering.service.impl;
 
-import com.example.food_ordering.entity.UserEntity;
+import com.example.food_ordering.entity.userEntity;
 import com.example.food_ordering.repository.UserRepository;
 import com.example.food_ordering.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class UserServiceimpl implements UserService {
 
     /** 新增會員 */
     @Override
-    public boolean addUser(UserEntity user) {
+    public boolean addUser(userEntity user) {
         if (this.getUser(user) == null){
 //            repository.addUser(user.getName(),user.getUsername(),user.getPassword(),user.getEmail(),user.getPhone());
             repository.save(user);
@@ -25,8 +25,8 @@ public class UserServiceimpl implements UserService {
     }
     /** 查詢帳號 */
     @Override
-    public UserEntity getUser(UserEntity user) {
-        UserEntity byUsername = repository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
+    public userEntity getUser(userEntity user) {
+        userEntity byUsername = repository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
         if (byUsername != null){
             if(byUsername.getUsername().equals(user.getUsername()) &&
                     byUsername.getPassword().equals(user.getPassword())){
@@ -37,8 +37,8 @@ public class UserServiceimpl implements UserService {
     }
     /** 更新帳號 */
     @Override
-    public UserEntity updateUser(UserEntity userEntity) {
-        UserEntity user = repository.save(userEntity);
+    public userEntity updateUser(userEntity userEntity) {
+        com.example.food_ordering.entity.userEntity user = repository.save(userEntity);
         return user;
     }
     /** 刪除帳號 */

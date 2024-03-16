@@ -2,7 +2,7 @@ package com.example.food_ordering.service.impl;
 
 import com.example.food_ordering.entity.CartEntity;
 import com.example.food_ordering.entity.ItemEntity;
-import com.example.food_ordering.entity.MealsEntity;
+import com.example.food_ordering.entity.mealsEntity;
 import com.example.food_ordering.repository.MealsRepository;
 import com.example.food_ordering.service.MealsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ public class MealsServiceimpl implements MealsService {
 
 
     @Override
-    public Page<MealsEntity> findItemCountByItem(Integer pageNo, Character item) {
+    public Page<mealsEntity> findItemCountByItem(Integer pageNo, Character item) {
         PageRequest page = PageRequest.of(pageNo, CARD_PAGE_COUNT);
-        Page<MealsEntity> allByItem = mealsRepository.findAllByItem(item, page);
+        Page<mealsEntity> allByItem = mealsRepository.findAllByItem(item, page);
         return allByItem;
     }
 

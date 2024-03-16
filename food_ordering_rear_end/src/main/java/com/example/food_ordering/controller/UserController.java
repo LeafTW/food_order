@@ -1,6 +1,6 @@
 package com.example.food_ordering.controller;
 
-import com.example.food_ordering.entity.UserEntity;
+import com.example.food_ordering.entity.userEntity;
 import com.example.food_ordering.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -20,7 +20,7 @@ public class UserController {
      * 新增會員
      */
     @PostMapping("/addUser")
-    public boolean addUser(@RequestBody UserEntity user) {
+    public boolean addUser(@RequestBody userEntity user) {
         if (userService.addUser(user)) {
             return true;
         }
@@ -31,8 +31,8 @@ public class UserController {
      * 檢查登入
      */
     @PostMapping("/LoginUser")
-    public ResponseEntity<?> LoginUser(HttpServletRequest request, @RequestBody UserEntity user) {
-        UserEntity getuser = userService.getUser(user);
+    public ResponseEntity<?> LoginUser(HttpServletRequest request, @RequestBody userEntity user) {
+        userEntity getuser = userService.getUser(user);
 
         if (getuser != null) {
             HttpSession session = request.getSession();
@@ -54,7 +54,7 @@ public class UserController {
     public ResponseEntity<?> getUserInfo(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            UserEntity user = (UserEntity) session.getAttribute("userData");
+            userEntity user = (userEntity) session.getAttribute("userData");
             return ResponseEntity.ok(user);
         } else {
             return ResponseEntity.badRequest().body("未登入");
@@ -77,8 +77,8 @@ public class UserController {
      * 更新會員資料
      */
     @PostMapping("/updateUser")
-    public UserEntity updateUser(@RequestBody UserEntity user) {
-        UserEntity userEntity = userService.updateUser(user);
+    public userEntity updateUser(@RequestBody userEntity user) {
+        userEntity userEntity = userService.updateUser(user);
         return userEntity;
     }
 
