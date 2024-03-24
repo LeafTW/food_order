@@ -12,7 +12,7 @@
 
 - **篩選Meals對應的item並回傳Page**：
     - `GET /mealsList/findAllByItem/{pageNo}/{item}`
-    - 返回一個指定頁面的mealsEntity列表。
+    - 返回一個指定頁面的MealsEntity列表。
 
 - **新增cart**：
     - `POST /mealsList/insertIntoCart`

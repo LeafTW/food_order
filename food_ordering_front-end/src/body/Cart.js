@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import './css/Cart.css'
 import axios from 'axios';
@@ -10,7 +11,7 @@ export const Cart = (props) => {
     //購物車清單html
     const cartDataArray = [];
     //購物車總價格
-    let totalPrice=0;
+    let totalPrice = 0;
 
     //Quantity數量觸發處理
     const handleQuantityChange = (event, product) => {
@@ -20,40 +21,40 @@ export const Cart = (props) => {
             // 更新产品对象中的数量
             product.quantity = newQuantity;
             //發送更新post
-            QuantityUpdate(product.quantity,product.id);
+            QuantityUpdate(product.quantity, product.id);
             // 触发 React 的状态更新，以重新渲染组件
             setCartData([...cartData]);
         }
     };
 
     //Cart刪除get
-    const CartDelete = (event,cartId) => {
-         // 防止a標籤Route行為
-         event.preventDefault();
+    const CartDelete = (event, cartId) => {
+        // 防止a標籤Route行為
+        event.preventDefault();
         let url = `http://localhost:8080/mealsList/deleteCartEntityById/${cartId}`;
-        axios.get(url)
-        .then(response => {
-            console.log(response);
-            // 在删除完成后重新获取购物车数据，并更新状态
-            let cartUrl = `http://localhost:8080/mealsList/cartEntityByUsername/${username}`;
-            axios.post(cartUrl)
-                .then(cartResponse => {
-                    console.log(cartResponse.data);
-                    setCartData(cartResponse.data);
-                });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        axios.delete(url)
+            .then(response => {
+                console.log(response);
+                // 在删除完成后重新获取购物车数据，并更新状态
+                let cartUrl = `http://localhost:8080/mealsList/cartEntityByUsername/${username}`;
+                axios.post(cartUrl)
+                    .then(cartResponse => {
+                        console.log(cartResponse.data);
+                        setCartData(cartResponse.data);
+                    });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     };
 
     //Quantity數量更新Post
     const QuantityUpdate = (quantity, cartId) => {
         let url = `http://localhost:8080/mealsList/updateCartEntityById/${quantity}/${cartId}`;
         axios.post(url)
-            // .then(response => {
-            //     console.log(response);
-            // });
+        // .then(response => {
+        //     console.log(response);
+        // });
     };
 
     //取得購物車
@@ -68,8 +69,27 @@ export const Cart = (props) => {
     }, [username]);
 
 
+    //新增至訂單
+    const AddOrder = (event, username) => {
+        // 防止a標籤Route行為
+        // event.preventDefault();
+        let url = `http://localhost:8080/orderController/orderAdd/${username}`;
+        if (username == null) {
+            url = `http://localhost:8080/orderController/orderAdd/null`;
+        }
+        axios.put(url)
+            .then(() => {
+                // 等待購物車資料更新完成後再進行跳轉
+                    // 手動觸發 React Router 的重新渲染
+                    window.location.href = '#/order';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
     cartData && cartData.map(data => {
-        totalPrice=data.price * data.quantity +totalPrice;
+        totalPrice = data.price * data.quantity + totalPrice;
         cartDataArray.push(
             <div className="product" key={data.id}>
                 <div className="product-image">
@@ -81,10 +101,10 @@ export const Cart = (props) => {
                 </div>
                 <div className="product-price">{data.price}</div>
                 <div className="product-quantity">
-                    <input type="number" value={data.quantity} min="1" max="99"  onChange={(event) => handleQuantityChange(event, data)} />
+                    <input type="number" value={data.quantity} min="1" max="99" onChange={(event) => handleQuantityChange(event, data)} />
                 </div>
                 <div className="product-removal">
-                    <button className="remove-product" onClick={e=>CartDelete(e,data.id)}>
+                    <button className="remove-product" onClick={e => CartDelete(e, data.id)}>
                         Remove
                     </button>
                 </div>
@@ -93,7 +113,6 @@ export const Cart = (props) => {
         )
 
     })
-
 
     return (
 
@@ -120,8 +139,7 @@ export const Cart = (props) => {
                     </div>
                 </div>
 
-                <button className="checkout">送出</button>
-
+                <button className="checkout " onClick={(event) => { AddOrder(event, username); }}>送出</button>
             </div>
         </div>
     )

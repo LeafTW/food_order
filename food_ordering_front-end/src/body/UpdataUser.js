@@ -35,7 +35,7 @@ const updataUser = ({ setUserData, userData }) => {
 
     return (
         <div className="container mt-5">
-            <h2 className="text-center mb-4">用户资料</h2>
+            <h2 className="text-center mb-4">用户資料</h2>
             {/* 更新用護表格 */}
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">

@@ -8,7 +8,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Meals from './body/Meals.js';
 import Cart from './body/Cart.js';
+import Order from './body/Order.js';
 import axios from 'axios';
+
+
 axios.defaults.withCredentials=true;
 function App() {
 
@@ -49,6 +52,7 @@ function App() {
         <Route path="/" element={<Meals userData={userData} />} />
         {userData != null && <Route path="/updataUser" element={<UpdataUser setUserData={setUserData} userData={userData} />} />}
         <Route path='/cart' element={<Cart userData={userData} />} />
+        <Route path='/order' element={<Order userData={userData}/>}/>
       </Routes>
     </Router>
   );

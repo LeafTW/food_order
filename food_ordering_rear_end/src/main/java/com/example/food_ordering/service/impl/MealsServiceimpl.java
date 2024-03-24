@@ -33,7 +33,7 @@ public class MealsServiceimpl implements MealsService {
     @Override
     public List<CartEntity> findCartEntityByUsername(String username) {
         List<CartEntity> cartEntityByUsername;
-        if (!username.equals("undefined")) {
+        if (!username.equals("undefined") & !username.equals("null")) {
             cartEntityByUsername = mealsRepository.findCartEntityByUsername(username);
         } else {
             cartEntityByUsername = mealsRepository.findCartEntityByNullUsername();

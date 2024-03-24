@@ -3,6 +3,7 @@ package com.example.food_ordering.controller;
 import com.example.food_ordering.entity.UserEntity;
 import com.example.food_ordering.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +34,10 @@ public class UserController {
     @PostMapping("/LoginUser")
     public ResponseEntity<?> LoginUser(HttpServletRequest request, @RequestBody UserEntity user) {
         UserEntity getuser = userService.getUser(user);
-
         if (getuser != null) {
             HttpSession session = request.getSession();
+//            response. setHeader ("Access-Control-Allow-Origin", "http://localhost:8080");
+            System.out.println("run session add"+request.getRequestId());
             session.setAttribute("userData", getuser);
             // 生命週期
             session.setMaxInactiveInterval(60);

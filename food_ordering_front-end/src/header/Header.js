@@ -28,6 +28,7 @@ const Toolbar = ({ setUserData, userData }) => {
                     <ul className="nav-links">
                         <li className="nav-item"><a href="#/" className="nav-link">首頁</a></li>
                         <li className="nav-item"><a href="#/cart" className="nav-link">購物車</a></li>
+                        <li className="nav-item"><a href="#/order" className="nav-link">訂單</a></li>
                     </ul>
                 </nav>
 
@@ -39,7 +40,7 @@ const Toolbar = ({ setUserData, userData }) => {
                         </button>
 
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a className="dropdown-item" href="#">訂單</a></li>
+                            <li><a className="dropdown-item" href="#/order">訂單</a></li>
                             <li><a className="dropdown-item" href="#/updataUser">資本資料</a></li>
                             <li><a className="dropdown-item" href="#" onClick={logout}>登出</a></li>
                         </ul>
