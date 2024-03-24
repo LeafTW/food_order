@@ -58,6 +58,26 @@
   - `PUT /userController/logout`
   - 登出當前用戶並刪除 session 資訊。
 
+## userController
+
+訂單相關功能：
+
+- **將購物車新增至訂單**：
+- **URL:** `PUT /orderAdd/{username}`
+- **描述:** 將指定用戶的購物車內容轉換為訂單。
+- **參數:**
+  - `username`: 用戶名稱。
+- **回應:** 返回成功的訊息或錯誤訊息。
+
+- **取得所有訂單**：
+- **URL:** `POST /totalOrderGet/{page}/{username}`
+- **描述:** 獲取指定用戶的所有訂單。
+- **參數:**
+  - `page`: 頁碼。
+  - `username`: 用戶名稱。
+  - `searchTerm`: 搜索關鍵字（從請求體中獲取）。
+- **回應:** 返回指定用戶的訂單分頁列表。
+
 ## 使用技術
 
 這個項目使用了Spring Boot框架來構建RESTful API，以及Spring的相關模組，包括Spring MVC和Spring Data JPA。此外，還使用了Jakarta Servlet來處理HTTP請求和響應。
