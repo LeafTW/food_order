@@ -34,6 +34,13 @@ public class OrderController {
         }
     }
 
+    /**
+     * 取得 所有totalOrder
+     * @param page
+     * @param username
+     * @param searchTerm
+     * @return
+     */
     @PostMapping("/totalOrderGet/{page}/{username}")
     public ResponseEntity<Page<TotalOrderEntity>> getTotalOrder(@PathVariable Integer page, @PathVariable String username, @RequestBody Map<String,String> searchTerm){
         Page<TotalOrderEntity> totalOrder = orderService.getTotalOrder(page, username,searchTerm.get("searchTerm"));
