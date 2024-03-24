@@ -58,7 +58,7 @@
   - `PUT /userController/logout`
   - 登出當前用戶並刪除 session 資訊。
 
-## userController
+## orderController
 
 訂單相關功能：
 
