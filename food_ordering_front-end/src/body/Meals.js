@@ -43,7 +43,7 @@ const Meals = (props) => {
         if (cartPost.name != null) {
             axios.post("http://localhost:8080/mealsList/insertIntoCart", cartPost)
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
                 })
                 .catch(error => {
                     console.error('Error:', error);

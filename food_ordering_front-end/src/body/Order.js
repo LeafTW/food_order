@@ -77,6 +77,7 @@ const Order = (props) => {
       <tr key={index}>
         <th scope="row">{index}</th>
         <td>{contentData.name}</td>
+        <td>{contentData.totalquantity}</td>
         <td>{contentData.totalprice}</td>
         <td>{contentData.state}</td>
         <td>{contentData.orderitem}</td>
@@ -88,7 +89,7 @@ const Order = (props) => {
   return (
     <div className="container">
       <div className="search-bar">
-        Name Search: 
+      訂單內容: 
         <input type="text" className="search-input" placeholder="輸入搜尋字串" value={searchTerm} onChange={handleSearch} />
       </div>
       <div className="table-responsive">
@@ -97,6 +98,7 @@ const Order = (props) => {
             <tr>
               <th scope="col"></th>
               <th scope="col">訂單內容</th>
+              <th scope="col">總數量</th>
               <th scope="col">總價</th>
               <th scope="col">狀態</th>
               <th scope="col">訂單編號</th>

@@ -11,12 +11,13 @@ import Cart from './body/Cart.js';
 import Order from './body/Order.js';
 import axios from 'axios';
 
+axios.defaults.withCredentials=true; //預設withCredentials為true，不加此預設在axios方法呼叫有可能失效
 
-axios.defaults.withCredentials=true;
 function App() {
 
   //使用者資料
   const [userData, setUserData] = useState(null);
+
 
   useEffect(() => {
     axios.get(`http://localhost:8080/userController/getSession`, {
