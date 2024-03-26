@@ -14,9 +14,9 @@ public interface MealsService {
 
     List<ItemEntity> findItemWithCount();
 
-    public Page<MealsEntity> findItemCountByItem(Integer pageNo, Character item);
+    public Page<MealsEntity> findItemCountByItem(Integer pageNo, String item);
 
-    List<CartEntity> findCartEntityByUsername(String username);
+    List<CartEntity> findCartEntityByUsername(String userName);
 
     void deleteCartEntityById(Long id);
 

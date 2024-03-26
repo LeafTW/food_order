@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TotalOrderRepository extends JpaRepository<TotalOrderEntity,Long> {
 
-    Page<TotalOrderEntity> getTotalOrderEntityByUsernameAndNameContaining(String username ,String Name,Pageable page);
+    Page<TotalOrderEntity> getTotalOrderEntityByUsernameAndNameContaining(String username ,String name,Pageable page);
 
-    Page<TotalOrderEntity> getTotalOrderEntityByUsernameIsNullAndNameContaining(String Name, Pageable page);
+    Page<TotalOrderEntity> getTotalOrderEntityByUsernameIsNullAndNameContaining(String name, Pageable page);
 
     Page<TotalOrderEntity> getTotalOrderEntityByUsername(String username ,Pageable page);
 

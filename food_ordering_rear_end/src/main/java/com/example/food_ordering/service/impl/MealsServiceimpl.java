@@ -21,7 +21,7 @@ public class MealsServiceimpl implements MealsService {
 
 
     @Override
-    public Page<MealsEntity> findItemCountByItem(Integer pageNo, Character item) {
+    public Page<MealsEntity> findItemCountByItem(Integer pageNo, String item) {
         PageRequest page = PageRequest.of(pageNo, CARD_PAGE_COUNT);
         Page<MealsEntity> allByItem = mealsRepository.findAllByItem(item, page);
         return allByItem;
@@ -31,10 +31,10 @@ public class MealsServiceimpl implements MealsService {
      * cart query
      **/
     @Override
-    public List<CartEntity> findCartEntityByUsername(String username) {
+    public List<CartEntity> findCartEntityByUsername(String userName) {
         List<CartEntity> cartEntityByUsername;
-        if (!username.equals("undefined") & !username.equals("null")) {
-            cartEntityByUsername = mealsRepository.findCartEntityByUsername(username);
+        if (!userName.equals("undefined") & !userName.equals("null")) {
+            cartEntityByUsername = mealsRepository.findCartEntityByUsername(userName);
         } else {
             cartEntityByUsername = mealsRepository.findCartEntityByNullUsername();
         }
@@ -53,8 +53,8 @@ public class MealsServiceimpl implements MealsService {
     }
 
     @Override
-    public void insertIntoCart(CartEntity c) {
-        mealsRepository.save(c);
+    public void insertIntoCart(CartEntity cartEntity) {
+        mealsRepository.save(cartEntity);
     }
 
     @Override

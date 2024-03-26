@@ -6,10 +6,10 @@ public interface UserService {
 
     boolean addUser(UserEntity user);
 
-    UserEntity getUser(UserEntity UserEntity);
+    UserEntity getUser(UserEntity userEntity);
 
-    UserEntity updateUser(UserEntity UserEntity);
+    UserEntity updateUser(UserEntity userEntity);
 
-    void deleteUser(String username);
+    void deleteUser(String userName);
 
 }

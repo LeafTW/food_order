@@ -32,12 +32,12 @@ public class OrderServiceimpl implements OrderService {
 
     /**
      * cart新增至order
-     * @param username
+     * @param userName
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void CartToOrder(String username) throws Exception{
-        List<CartEntity> cartEntityByUsername = mealsService.findCartEntityByUsername(username);
+    @Transactional
+    public void CartToOrder(String userName){
+        List<CartEntity> cartEntityByUsername = mealsService.findCartEntityByUsername(userName);
         Integer orderIdMax = orderRepository.findMaxDistinctOrderId();
         if (orderIdMax == null) {
             orderIdMax = 0;
@@ -46,7 +46,7 @@ public class OrderServiceimpl implements OrderService {
         }
         for (var cartEntity : cartEntityByUsername) {
             OrderEntity orderEntity = new OrderEntity(cartEntity.getName(), cartEntity.getPrice(),
-                    cartEntity.getQuantity(), cartEntity.getUsername(),
+                    cartEntity.getQuantity()    , cartEntity.getUsername(),
                     (cartEntity.getPrice() * cartEntity.getQuantity()), orderIdMax);
             orderRepository.save(orderEntity);
             mealsService.deleteCartEntityById(cartEntity.getId());
@@ -60,8 +60,8 @@ public class OrderServiceimpl implements OrderService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void setTotalOrderEntity(List<CartEntity> cartEntityList,Integer orderItem)  throws Exception{
+    @Transactional
+    public void setTotalOrderEntity(List<CartEntity> cartEntityList,Integer orderItem)  {
         TotalOrderEntity totalOrderEntity = new TotalOrderEntity();
         for(var i=0 ; i<cartEntityList.size(); i++){
             CartEntity cartEntity = cartEntityList.get(i);
@@ -81,22 +81,22 @@ public class OrderServiceimpl implements OrderService {
     }
 
     /**
-     * get getTotalOrder 所有DATA
+     * 取得TotalOrder所有DATA
      * @param page
-     * @param username
-     * @param searchTerm 搜尋值
+     * @param userName
+     * @param searchTerm 搜尋Name的值
      * @return
      */
     @Override
-    public Page<TotalOrderEntity> getTotalOrder(Integer page, String username,String searchTerm) {
+    public Page<TotalOrderEntity> getTotalOrder(Integer page, String userName,String searchTerm) {
         PageRequest pageRequest = PageRequest.of(page, ORDER_PAGE_COUNT);
         Page<TotalOrderEntity> totalOrderEntities;
-        if (username.equals("null")){
+        if (userName.equals("null")){
             if (searchTerm.equals("")){totalOrderEntities=totalOrderRepository.getTotalOrderEntityByUsernameIsNull(pageRequest);}
             else {totalOrderEntities = totalOrderRepository.getTotalOrderEntityByUsernameIsNullAndNameContaining(searchTerm,pageRequest);}
         }else {
-            if (searchTerm.equals("")){totalOrderEntities=totalOrderRepository.getTotalOrderEntityByUsername(username,pageRequest);}
-            else{totalOrderEntities=totalOrderRepository.getTotalOrderEntityByUsernameAndNameContaining(username,searchTerm,pageRequest);}
+            if (searchTerm.equals("")){totalOrderEntities=totalOrderRepository.getTotalOrderEntityByUsername(userName,pageRequest);}
+            else{totalOrderEntities=totalOrderRepository.getTotalOrderEntityByUsernameAndNameContaining(userName,searchTerm,pageRequest);}
         }
         return totalOrderEntities;
     }

@@ -25,5 +25,5 @@ public class MealsEntity {
     private Integer price;
 
     @Column
-    private Character item;
+    private String item;
 }

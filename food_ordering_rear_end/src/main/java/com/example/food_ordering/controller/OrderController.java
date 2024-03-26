@@ -26,12 +26,8 @@ public class OrderController {
      */
     @PutMapping("/orderAdd/{username}")
     public ResponseEntity<String> CartToOrder(@PathVariable String username) {
-        try {
             orderService.CartToOrder(username);
             return ResponseEntity.ok("success");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
-        }
     }
 
     /**

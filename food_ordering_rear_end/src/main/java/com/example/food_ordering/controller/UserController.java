@@ -16,6 +16,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private HttpServletRequest request;
 
     /**
      * 新增會員
@@ -32,7 +34,7 @@ public class UserController {
      * 檢查登入
      */
     @PostMapping("/LoginUser")
-    public ResponseEntity<?> LoginUser(HttpServletRequest request, @RequestBody UserEntity user) {
+    public ResponseEntity<?> LoginUser(@RequestBody UserEntity user) {
         UserEntity getuser = userService.getUser(user);
         if (getuser != null) {
             HttpSession session = request.getSession();
@@ -53,7 +55,7 @@ public class UserController {
      * 取得user Session
      */
     @GetMapping("/getSession")
-    public ResponseEntity<?> getUserInfo(HttpServletRequest request) {
+    public ResponseEntity<?> getUserInfo() {
         HttpSession session = request.getSession(false);
         if (session != null) {
             UserEntity user = (UserEntity) session.getAttribute("userData");

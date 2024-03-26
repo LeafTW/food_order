@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
 
-    UserEntity save(UserEntity user);
     public UserEntity findByUsernameAndPassword(String username, String password);
 
-    // 根据用户ID删除用户
+    /**
+     * 根据用户ID删除用户
+     * @param username
+     */
     void deleteByUsername(String username);
 }

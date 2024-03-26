@@ -18,15 +18,15 @@ public class ItemEntity {
     private Long id;
 
     @Column
-    private Character item;
+    private String item;
 
     @Column
     private String item_name;
 
-    public ItemEntity(Long id, Character item, String item_name) {
+    public ItemEntity(Long id, String item, String itemName) {
         this.id = id;
         this.item = item;
-        this.item_name = item_name;
+        this.item_name = itemName;
     }
 
     public ItemEntity() {

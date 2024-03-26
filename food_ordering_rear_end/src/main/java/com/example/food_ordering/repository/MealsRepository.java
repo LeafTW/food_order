@@ -17,13 +17,13 @@ public interface MealsRepository extends JpaRepository<MealsEntity, Long> {
     /**
      * item join meals query
      **/
-    @Query("select DISTINCT new com.example.food_ordering.entity.ItemEntity(i.id, i.item ,i.item_name) from ItemEntity i join MealsEntity m on i.item = m.item ")
+    @Query("SELECT i FROM ItemEntity i JOIN MealsEntity m ON i.item = m.item ")
     public List<ItemEntity> findItemWithCount();
 
     /**
      * item query
      **/
-    public Page<MealsEntity> findAllByItem(Character item, Pageable pageable);
+    public Page<MealsEntity> findAllByItem(String item, Pageable pageable);
 
     /**
      * cart add
@@ -35,6 +35,7 @@ public interface MealsRepository extends JpaRepository<MealsEntity, Long> {
      **/
     @Query("SELECT c FROM CartEntity c where c.username = ?1")
     List<CartEntity> findCartEntityByUsername(String username);
+
     /**
      * cart query bu nullUsername
      **/
@@ -46,7 +47,7 @@ public interface MealsRepository extends JpaRepository<MealsEntity, Long> {
      **/
     @Modifying
     @Transactional//確保方法在事務中執行。將該註解添加到你的Service方法上，以確保刪除操作發生在事務內部
-    @Query("delete from CartEntity c where c.id =?1 ")
+    @Query("DELETE FROM CartEntity c WHERE c.id =?1 ")
     void deleteCartEntityById(Long id);
 
     /**
@@ -54,6 +55,6 @@ public interface MealsRepository extends JpaRepository<MealsEntity, Long> {
      **/
     @Modifying
     @Transactional//確保方法在事務中執行。將該註解添加到你的Service方法上，以確保刪除操作發生在事務內部
-    @Query("update CartEntity c set c.quantity = ?1 where c.id = ?2")
+    @Query("UPDATE CartEntity c SET c.quantity = ?1 WHERE c.id = ?2")
     Integer updateCartEntityById(Integer quantity, Long id);
 }

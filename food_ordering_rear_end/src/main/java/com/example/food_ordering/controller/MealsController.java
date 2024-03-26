@@ -33,7 +33,7 @@ public class MealsController {
      * 篩選Meals對應的item並回傳Page
      */
     @GetMapping("/findAllByItem/{pageNo}/{item}")
-    ResponseEntity<Page<MealsEntity>> findts(@PathVariable Integer pageNo, @PathVariable Character item) {
+    ResponseEntity<Page<MealsEntity>> findts(@PathVariable Integer pageNo, @PathVariable String item) {
         Page<MealsEntity> itemCountByItem = mealsService.findItemCountByItem(pageNo, item);
         return ResponseEntity.ok(itemCountByItem);
     }
@@ -42,12 +42,12 @@ public class MealsController {
      * 新增cart
      */
     @PostMapping("/insertIntoCart")
-    ResponseEntity insertIntoCart(@RequestBody CartEntity c) {
-        if (c == null) {
+    ResponseEntity insertIntoCart(@RequestBody CartEntity cartEntity) {
+        if (cartEntity == null) {
             return ResponseEntity.ok(null);
         } else {
-            mealsService.insertIntoCart(c);
-            return ResponseEntity.ok(c);
+            mealsService.insertIntoCart(cartEntity);
+            return ResponseEntity.ok(cartEntity);
         }
     }
 

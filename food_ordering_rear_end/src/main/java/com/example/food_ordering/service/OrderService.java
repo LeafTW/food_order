@@ -12,11 +12,11 @@ import java.util.List;
 public interface OrderService {
     /**
      * 送出購物車資料
-     * @param username
+     * @param userName
      */
-    void CartToOrder(String username) throws Exception;
+    void CartToOrder(String userName) ;
 
-    void setTotalOrderEntity(List<CartEntity> cartEntityList,Integer orderItem) throws Exception;
+    void setTotalOrderEntity(List<CartEntity> cartEntityList,Integer orderItem) ;
 
-     Page<TotalOrderEntity> getTotalOrder(Integer page,String username,String searchTerm);
+     Page<TotalOrderEntity> getTotalOrder(Integer page,String userName,String searchTerm);
 }
