@@ -1,6 +1,7 @@
 package com.example.food_ordering.controller;
 
 import com.example.food_ordering.entity.UserEntity;
+import com.example.food_ordering.error.ActionException;
 import com.example.food_ordering.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,45 +24,37 @@ public class UserController {
      * 新增會員
      */
     @PostMapping("/addUser")
-    public boolean addUser(@RequestBody UserEntity user) {
-        if (userService.addUser(user)) {
-            return true;
-        }
-        return false;
+    public boolean addUser(@RequestBody UserEntity user) throws ActionException{
+        return userService.addUser(user);
     }
 
     /**
      * 檢查登入
      */
     @PostMapping("/LoginUser")
-    public ResponseEntity<?> LoginUser(@RequestBody UserEntity user) {
+    public ResponseEntity<?> LoginUser(@RequestBody UserEntity user) throws ActionException {
         UserEntity getuser = userService.getUser(user);
-        if (getuser != null) {
-            HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 //            response. setHeader ("Access-Control-Allow-Origin", "http://localhost:8080");
-            System.out.println("run session add"+request.getRequestId());
-            session.setAttribute("userData", getuser);
-            // 生命週期
-            session.setMaxInactiveInterval(60);
-            System.out.println(getuser);
-
-            return ResponseEntity.ok() .body(getuser);
-        } else {
-            return ResponseEntity.badRequest().body("Invalid username or password");
-        }
+        System.out.println("run session add" + request.getRequestId());
+        session.setAttribute("userData", getuser);
+        // 生命週期
+        session.setMaxInactiveInterval(60);
+        System.out.println(getuser);
+        return ResponseEntity.ok().body(getuser);
     }
 
     /**
      * 取得user Session
      */
     @GetMapping("/getSession")
-    public ResponseEntity<?> getUserInfo() {
+    public ResponseEntity<?> getUserInfo() throws ActionException{
         HttpSession session = request.getSession(false);
         if (session != null) {
             UserEntity user = (UserEntity) session.getAttribute("userData");
             return ResponseEntity.ok(user);
         } else {
-            return ResponseEntity.badRequest().body("未登入");
+            throw new ActionException("未登入","500");
         }
     }
 
