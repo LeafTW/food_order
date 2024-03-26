@@ -48,7 +48,7 @@ const Login = ({ setUserData }) => {
         )
     }
 
-     {/* 輸入錯誤值全部設為false*/ }
+    {/* 輸入錯誤值全部設為false*/ }
     const clearformErrors = () => {
         setFormErrors({
             username: false
@@ -72,9 +72,15 @@ const Login = ({ setUserData }) => {
                 }
             })
             .catch(error => {
-                // console.log(error);
-                console.error('Error:', error);
-                setLoginError(true); // 登入失败，设置状态为true
+                 // console.error('Error:', error);
+                 if (error.response && error.response.data) {
+                    const errorMessage = error.response.data.message; // 從 response 中獲取錯誤訊息
+                    console.log(errorMessage);
+                    setLoginError(true); // 登入失败，设置状态为true
+                } else {
+                    // 無法從 response 中獲取錯誤訊息時的處理邏輯
+                }
+                
             });
     }
     {/* 新增會員 post*/ }
@@ -89,7 +95,13 @@ const Login = ({ setUserData }) => {
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                // console.error('Error:', error);
+                if (error.response && error.response.data) {
+                    const errorMessage = error.response.data.message; // 從 response 中獲取錯誤訊息
+                    console.log(errorMessage);
+                } else {
+                    // 無法從 response 中獲取錯誤訊息時的處理邏輯
+                }
                 setaddError(true); // 新增會員失败，设置状态为true
             });
     }
