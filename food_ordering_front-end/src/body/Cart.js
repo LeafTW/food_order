@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import './css/Cart.css'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 export const Cart = (props) => {
 
@@ -12,6 +14,8 @@ export const Cart = (props) => {
     const cartDataArray = [];
     //購物車總價格
     let totalPrice = 0;
+    //router重新導向
+    let navigate=useNavigate();
 
     //Quantity數量觸發處理
     const handleQuantityChange = (event, product) => {
@@ -34,12 +38,12 @@ export const Cart = (props) => {
         let url = `http://localhost:8080/mealsList/deleteCartEntityById/${cartId}`;
         axios.delete(url)
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 // 在删除完成后重新获取购物车数据，并更新状态
                 let cartUrl = `http://localhost:8080/mealsList/cartEntityByUsername/${username}`;
                 axios.post(cartUrl)
                     .then(cartResponse => {
-                        console.log(cartResponse.data);
+                        // console.log(cartResponse.data);
                         setCartData(cartResponse.data);
                     });
             })
@@ -63,25 +67,25 @@ export const Cart = (props) => {
         let url = `http://localhost:8080/mealsList/cartEntityByUsername/${username}`;
         axios.post(url)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 setCartData(response.data);
             });
     }, [username]);
 
-
     //新增至訂單
-    const AddOrder = (event, username) => {
+    const AddOrder = (event) => {
         // 防止a標籤Route行為
-        // event.preventDefault();
+        event.preventDefault();
         let url = `http://localhost:8080/orderController/orderAdd/${username}`;
         if (username == null) {
             url = `http://localhost:8080/orderController/orderAdd/null`;
         }
         axios.put(url)
-            .then(() => {
+            .then((response) => {
+                // console.log(response);
                 // 等待購物車資料更新完成後再進行跳轉
-                    // 手動觸發 React Router 的重新渲染
-                    window.location.href = '#/order';
+                // 使用 history.push 跳轉到訂單頁面
+                navigate('/order');
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -139,7 +143,7 @@ export const Cart = (props) => {
                     </div>
                 </div>
 
-                <button className="checkout " onClick={(event) => { AddOrder(event, username); }}>送出</button>
+                <button className="checkout " onClick={(event)=>{AddOrder(event)}}>送出</button>
             </div>
         </div>
     )
