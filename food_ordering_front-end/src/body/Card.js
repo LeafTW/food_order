@@ -2,7 +2,7 @@ import React, { Component ,useState } from 'react'
 
 const Card = (props) => {
     let { id, name, price, item } = props.cardData;
-
+    // console.log(props.cardData);
     const setcart=(event,name,price)=>{
         // 防止a標籤Route行為
         // event.preventDefault();
@@ -11,7 +11,6 @@ const Card = (props) => {
     }
 
     return (
-
         <div className="col-sm-6 col-md-3" >
             <div className="card mb-3">
                 <div className="card-body">

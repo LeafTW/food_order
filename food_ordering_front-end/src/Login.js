@@ -1,6 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
+//cookie
+const cookies = new Cookies();
+
+export const setToken = (token) => {
+cookies.set('token', token, 
+{ path: '/',secure: true,sameSite :true}
+);
+console.log(cookies.get('token'));
+};
+
+export const getAuthToken = () => {
+if (cookies.get('token')===undefined){
+  return '';
+}
+return cookies.get('token');
+};
+
+axios.defaults.withCredentials=true; //預設withCredentials為true，不加此預設在axios方法呼叫有可能失效
+const baseUrl = process.env.REACT_APP_API_BASE_URL; // 獲取環境變量中的基礎 URL
 
 const Login = ({ setUserData }) => {
 
@@ -58,13 +78,26 @@ const Login = ({ setUserData }) => {
     {/* 登入會員 post*/ }
     const LoginUserAction = () => {
         setLoginError(false);
-        axios.post("http://localhost:8080/userController/LoginUser", {
+        axios.post(`${baseUrl}/userController/LoginUser`, {
             username: `${useData.username}`,
             password: `${useData.password}`
+        },{
+            withCredentials: true
         })
             .then(response => {
                 if (response.data !== "") {
                     setUserData(response.data);
+
+                    axios.post(`${baseUrl}/userController/verifyUser`, {
+                        username: `${useData.username}`,
+                        password: `${useData.password}`
+                    },{
+                        withCredentials: true
+                    })
+                        .then(response => {
+                            setToken(response.data);
+                        })
+                    console.log(getAuthToken());
                     // console.log(response.data.username);
 
                 } else {
@@ -87,7 +120,9 @@ const Login = ({ setUserData }) => {
     const addUserAction = () => {
         setaddError(false);
         console.log(useData)
-        axios.post("http://localhost:8080/userController/addUser", useData)
+        axios.post("${baseUrl}/userController/addUser", useData,{
+            withCredentials: true
+        })
             .then(response => {
                 // console.log(response)
                 if (response.data == false) {

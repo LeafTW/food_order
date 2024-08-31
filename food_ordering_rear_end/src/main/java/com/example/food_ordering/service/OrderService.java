@@ -14,7 +14,7 @@ public interface OrderService {
      * 送出購物車資料
      * @param userName
      */
-    void CartToOrder(String userName) ;
+    void cartToOrder(String userName) ;
 
     void setTotalOrderEntity(List<CartEntity> cartEntityList,Integer orderItem) ;
 

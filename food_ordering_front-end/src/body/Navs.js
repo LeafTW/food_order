@@ -6,7 +6,6 @@ const Navs = (props) => {
     //解析page
     const { content, first, last, number, totalPages } = props.MealsPage ?? {};
 
-
     const pageItems = [];
 
     const clickPage = (event, pageIndex) => {
@@ -43,6 +42,7 @@ const Navs = (props) => {
     //導覽與頁籤內容()
     const createNavShow = (ItemData, index) => {
         // console.log(props.MealsPage.content.name);
+        // console.log(content);
         return (
             <div className={`tab-pane fade show ${index === 0 && "active"}`} id={`target_${ItemData.item}`} key={index} role="tabpanel" aria-labelledby="nav-home-tab">
                 {/* 分頁清單 */}

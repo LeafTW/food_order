@@ -4,6 +4,8 @@ import './css/Cart.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+axios.defaults.withCredentials=true; //預設withCredentials為true，不加此預設在axios方法呼叫有可能失效
+const baseUrl = process.env.REACT_APP_API_BASE_URL; // 獲取環境變量中的基礎 URL
 
 export const Cart = (props) => {
 
@@ -29,19 +31,23 @@ export const Cart = (props) => {
             // 触发 React 的状态更新，以重新渲染组件
             setCartData([...cartData]);
         }
-    };
+    };  
 
     //Cart刪除get
     const CartDelete = (event, cartId) => {
         // 防止a標籤Route行為
         event.preventDefault();
-        let url = `http://localhost:8080/mealsList/deleteCartEntityById/${cartId}`;
-        axios.delete(url)
+        let url = `${baseUrl}/mealsList/deleteCartEntityById/${cartId}`;
+        axios.delete(url,{
+            withCredentials: true
+        })
             .then(response => {
                 // console.log(response);
                 // 在删除完成后重新获取购物车数据，并更新状态
-                let cartUrl = `http://localhost:8080/mealsList/cartEntityByUsername/${username}`;
-                axios.post(cartUrl)
+                let cartUrl = `${baseUrl}/mealsList/cartEntityByUsername/${username}`;
+                axios.post(cartUrl,{
+                    withCredentials: true
+                })
                     .then(cartResponse => {
                         // console.log(cartResponse.data);
                         setCartData(cartResponse.data);
@@ -54,8 +60,10 @@ export const Cart = (props) => {
 
     //Quantity數量更新Post
     const QuantityUpdate = (quantity, cartId) => {
-        let url = `http://localhost:8080/mealsList/updateCartEntityById/${quantity}/${cartId}`;
-        axios.post(url)
+        let url = `${baseUrl}/mealsList/updateCartEntityById/${quantity}/${cartId}`;
+        axios.post(url,{
+            withCredentials: true
+        })
         // .then(response => {
         //     console.log(response);
         // });
@@ -64,8 +72,10 @@ export const Cart = (props) => {
     //取得購物車
     useEffect(() => {
         // console.log(username);
-        let url = `http://localhost:8080/mealsList/cartEntityByUsername/${username}`;
-        axios.post(url)
+        let url = `${baseUrl}/mealsList/cartEntityByUsername/${username}`;
+        axios.post(url,{
+            withCredentials: true
+        })
             .then(response => {
                 // console.log(response.data);
                 setCartData(response.data);
@@ -76,11 +86,13 @@ export const Cart = (props) => {
     const AddOrder = (event) => {
         // 防止a標籤Route行為
         event.preventDefault();
-        let url = `http://localhost:8080/orderController/orderAdd/${username}`;
+        let url = `${baseUrl}/orderController/orderAdd/${username}`;
         if (username == null) {
-            url = `http://localhost:8080/orderController/orderAdd/null`;
+            url = `${baseUrl}/orderController/orderAdd/null`;
         }
-        axios.put(url)
+        axios.put(url,{
+            withCredentials: true
+        })
             .then((response) => {
                 // console.log(response);
                 // 等待購物車資料更新完成後再進行跳轉

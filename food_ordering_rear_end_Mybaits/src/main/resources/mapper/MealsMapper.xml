@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.food_ordering.mapper.MealsMapper">
+    <resultMap id="MealsWithItemResultMap" type="com.example.food_ordering.dto.MealsItemDTO">
+        <id property="id" column="meal_id"/>
+        <result property="name" column="name"/>
+        <result property="price" column="price"/>
+        <association property="itemEntity" javaType="com.example.food_ordering.entity.ItemEntity" resultMap="ItemEntityResultMap"/>
+    </resultMap>
+
+    <resultMap id="ItemEntityResultMap" type="com.example.food_ordering.entity.ItemEntity">
+        <id property="id" column="id_item"/>
+        <result property="item" column="item"/>
+        <result property="item_name" column="item_name"/>
+    </resultMap>
+
+    <select id="findMealsAllWithItem" resultMap="MealsWithItemResultMap">
+        SELECT m.meal_id , m.name ,m.price ,i.id_item, i.item, i.item_name FROM meals m
+          LEFT JOIN item  i
+                ON m.item = i.item
+    </select>
+
+    <select id="findItemWithCount" resultType="com.example.food_ordering.entity.ItemEntity">
+        SELECT id_item,item,item_name,`show` FROM item
+    </select>
+
+    <select id="findAllByItem" resultType="com.example.food_ordering.entity.MealsEntity">
+        SELECT meal_id,name,price,item FROM meals WHERE item = #{item}
+    </select>
+
+    <insert id="saveCartEntity" parameterType="com.example.food_ordering.entity.CartEntity">
+        INSERT INTO cart (id, name, price, quantity,username)
+        VALUES (#{id}, #{name},#{price}, #{quantity}, #{username})
+    </insert>
+
+    <select id="findCartEntityByUsername" resultType="com.example.food_ordering.entity.CartEntity">
+        SELECT id,name,price,quantity,username FROM cart WHERE username = #{username}
+    </select>
+
+    <select id="findCartEntityByNullUsername" resultType="com.example.food_ordering.entity.CartEntity">
+        SELECT id,name,price,quantity,username FROM cart WHERE username IS NULL
+    </select>
+
+    <delete id="deleteCartEntityById">
+        DELETE FROM cart WHERE id = #{id}
+    </delete>
+
+    <update id="updateCartEntityById" >
+        UPDATE cart SET quantity = #{quantity} WHERE id = #{id}
+    </update>
+
+    <select id="findAllByItemWithPagination" resultType="com.example.food_ordering.entity.MealsEntity">
+        SELECT meal_id , name , price ,item FROM meals WHERE item = #{item} LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <update id="updateItemShow">
+        UPDATE `Food_ordering`.`item` SET `show` = #{show} WHERE `item` = #{item}
+    </update>
+
+</mapper>

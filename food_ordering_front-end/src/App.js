@@ -10,8 +10,25 @@ import Meals from './body/Meals.js';
 import Cart from './body/Cart.js';
 import Order from './body/Order.js';
 import axios from 'axios';
+import AllMeals from './body/AllMeals.js';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import Cookies from 'universal-cookie';
+
+//========================= cookie ===================
+const cookies = new Cookies();
+export const getAuthToken = () => {
+  if (cookies.get('token')===undefined){
+    return '';
+  }
+  return cookies.get('token');
+  };
+//============================================
 
 axios.defaults.withCredentials=true; //預設withCredentials為true，不加此預設在axios方法呼叫有可能失效
+const baseUrl = process.env.REACT_APP_API_BASE_URL; // 獲取環境變量中的基礎 URL
+
+// 創建一個 QueryClient 實例
+const queryClient = new QueryClient();
 
 function App() {
 
@@ -20,7 +37,13 @@ function App() {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/userController/getSession`, {
+    // axios.get(`${baseUrl}/userController/getSession`, {
+      const token = getAuthToken();
+      console.log(`App.js ${token}`);
+      axios.get(`${baseUrl}/userController/getToken`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
       withCredentials: true // 使請求攜帶 cookies
     }).then(response => {
       setUserData(response.data);
@@ -35,7 +58,8 @@ function App() {
           console.error('Error:', error.message);
           // 其他錯誤情況
           //登出
-          axios.put(`http://localhost:8080/userController/logout`, {
+          axios.put(`${baseUrl}/userController/logout`, {
+            withCredentials: true // 使請求攜帶 cookies
           }).then(response => {
             console.log(response.data)
           })
@@ -47,15 +71,20 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Header setUserData={setUserData} userData={userData} />
-      <Routes>
-        <Route path="/" element={<Meals userData={userData} />} />
-        {userData != null && <Route path="/updataUser" element={<UpdataUser setUserData={setUserData} userData={userData} />} />}
-        <Route path='/cart' element={<Cart userData={userData} />} />
-        <Route path='/order' element={<Order userData={userData}/>}/>
-      </Routes>
-    </Router>
+    
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Header setUserData={setUserData} userData={userData} />
+        <Routes>
+          <Route path="/" element={<Meals userData={userData} />} />
+          {userData != null && <Route path="/updataUser" element={<UpdataUser setUserData={setUserData} userData={userData} />} />}
+          <Route path='/cart' element={<Cart userData={userData} />} />
+          <Route path='/order' element={<Order userData={userData} />} />
+          <Route path='/allMeals' element={<AllMeals userData={userData} />} />
+        </Routes>
+      </Router>
+    </QueryClientProvider>
+    
   );
 }
 

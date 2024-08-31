@@ -36,7 +36,7 @@ public class OrderServiceimpl implements OrderService {
      */
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public void CartToOrder(String userName){
+    public void cartToOrder(String userName){
         List<CartEntity> cartEntityByUsername = mealsService.findCartEntityByUsername(userName);
         Integer orderIdMax = orderRepository.findMaxDistinctOrderId();
         if (orderIdMax == null) {

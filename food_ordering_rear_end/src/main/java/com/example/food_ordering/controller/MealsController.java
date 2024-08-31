@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/mealsList")
-@CrossOrigin(maxAge = 3600, allowedHeaders = "*")//開放外部ip讀取資料權限
+@CrossOrigin(maxAge = 3000, allowedHeaders = "*")//開放外部ip讀取資料權限
 public class MealsController {
 
     @Autowired

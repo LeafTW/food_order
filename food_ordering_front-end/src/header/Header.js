@@ -2,20 +2,36 @@ import React, { useState, useEffect } from 'react';
 import Login from '../Login.js';
 import './Header.css';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+axios.defaults.withCredentials=true; //預設withCredentials為true，不加此預設在axios方法呼叫有可能失效
+const baseUrl = process.env.REACT_APP_API_BASE_URL; // 獲取環境變量中的基礎 URL
 
 const Toolbar = ({ setUserData, userData }) => {
 
+    const cookies = new Cookies();
+
     const logout = () => {
-        // 清除用户数据或执行其他登出操作
-        setUserData(null);
-        axios.put(`http://localhost:8080/userController/logout`, {
-        }).then(response => {
-           console.log(response.data)
-        })
-            .catch(error => {
-                console.error('Error updating user profile:', error);
-            });
+    cookies.remove('token', { path: '/' }); // 假設你的 token 存儲在名為 'token' 的 cookie 中
+    // 可以選擇性的移除其他相關的 cookies
+    // cookies.remove('anotherCookie', { path: '/' });
+    
+    // 可以進行其他登出邏輯，如重定向到登錄頁面
+    window.location.href = '/login'; // 假設你的登錄頁面路徑是 '/login'
     };
+
+    // const logout = () => {
+    //     // 清除用户数据或执行其他登出操作
+    //     setUserData(null);
+    //     axios.put(`${baseUrl}/userController/logout`, {
+    //         withCredentials: true // 使請求攜帶 cookies
+    //     }).then(response => {
+    //        console.log(response.data)
+    //     })
+    //         .catch(error => {
+    //             console.error('Error updating user profile:', error);
+    //         });
+    // };
 
     return (
         <div>
@@ -29,6 +45,7 @@ const Toolbar = ({ setUserData, userData }) => {
                         <li className="nav-item"><a href="#/" className="nav-link">首頁</a></li>
                         <li className="nav-item"><a href="#/cart" className="nav-link">購物車</a></li>
                         <li className="nav-item"><a href="#/order" className="nav-link">訂單</a></li>
+                        <li className="nav-item"><a href="#/allMeals" className="nav-link">所有餐單</a></li>
                     </ul>
                 </nav>
 

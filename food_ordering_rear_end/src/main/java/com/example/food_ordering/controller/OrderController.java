@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/orderController")
-@CrossOrigin(maxAge = 3600, allowedHeaders = "*")//開放外部ip讀取資料權限
+@CrossOrigin(maxAge = 3000, allowedHeaders = "*")//開放外部ip讀取資料權限
 public class OrderController {
 
     @Autowired
@@ -25,8 +25,8 @@ public class OrderController {
      * @return
      */
     @PutMapping("/orderAdd/{username}")
-    public ResponseEntity<String> CartToOrder(@PathVariable String username) {
-            orderService.CartToOrder(username);
+    public ResponseEntity<String> cartToOrder(@PathVariable String username) {
+            orderService.cartToOrder(username);
             return ResponseEntity.ok("success");
     }
 

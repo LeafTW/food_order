@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navs from './Navs.js';
 
+axios.defaults.withCredentials=true; //預設withCredentials為true，不加此預設在axios方法呼叫有可能失效
+const baseUrl = process.env.REACT_APP_API_BASE_URL; // 獲取環境變量中的基礎 URL
+
 const Meals = (props) => {
     //(api findAllByItem)回傳page
     const [MealsPage, setMealsPage] = useState(null);
@@ -41,7 +44,8 @@ const Meals = (props) => {
     useEffect((event) => {
         // console.log("cart POST : "+`${username.username}`)
         if (cartPost.name != null) {
-            axios.post("http://localhost:8080/mealsList/insertIntoCart", cartPost)
+            axios.post("${baseUrl}/mealsList/insertIntoCart", 
+                cartPost,{withCredentials: true })
                 .then(response => {
                     // console.log(response)
                 })
@@ -54,8 +58,10 @@ const Meals = (props) => {
 
     //取得餐點分類
     useEffect(() => {
-        let url = `http://localhost:8080/mealsList/findItemCountByMeals`;
-        axios.get(url)
+        let url = `${baseUrl}/mealsList/findItemCountByMeals`;
+        axios.get(url,{
+            withCredentials: true // 使請求攜帶 cookies
+            })
             .then(response => {
                 // console.log(response)
                 setMealsItem(response.data);
@@ -68,10 +74,12 @@ const Meals = (props) => {
 
     // 取得餐點列表
     useEffect(() => {
-        let url = `http://localhost:8080/mealsList/findAllByItem/${currentPage}/${ItemPage}`;
-        axios.get(url)
+        let url = `${baseUrl}/mealsList/findAllByItem/${currentPage}/${ItemPage}`;
+        axios.get(url,{
+            withCredentials: true
+        })
             .then(response => {
-                // console.log(response)'
+                console.log(baseUrl);
                 setMealsPage(response.data);
                 // setMealsPage(response.data);
             });

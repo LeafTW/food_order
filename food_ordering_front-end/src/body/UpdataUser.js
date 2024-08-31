@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const updataUser = ({ setUserData, userData }) => {
+axios.defaults.withCredentials=true; //預設withCredentials為true，不加此預設在axios方法呼叫有可能失效
+const baseUrl = process.env.REACT_APP_API_BASE_URL; // 獲取環境變量中的基礎 URL
 
+const updataUser = ({ setUserData, userData }) => {
     {/* 偵測到input更新變數*/ }
     const handleChange = e => {
         const { name, value } = e.target;
@@ -15,7 +17,9 @@ const updataUser = ({ setUserData, userData }) => {
     {/* 刪除會員 get*/ }
     const deleteUser =()=>{
         setUserData(null);
-        axios.get(`http://localhost:8080/userController/deleteUser/${userData.username}`)
+        axios.get(`${baseUrl}/userController/deleteUser/${userData.username}`,{
+            withCredentials: true
+        })
             .catch(error => {
                 console.error('Error updating user profile:', error);
             });
@@ -23,7 +27,7 @@ const updataUser = ({ setUserData, userData }) => {
     {/* 更新會員 post*/ }
     const handleSubmit = e => {
         e.preventDefault();
-        axios.post('http://localhost:8080/userController/updateUser', userData)
+        axios.post('${baseUrl}/userController/updateUser', userData)
             .then(response => {
                 // console.log('User profile updated successfully:', response);
                 setUserData(response.data)

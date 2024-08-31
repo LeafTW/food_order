@@ -15,7 +15,7 @@ public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_item")
-    private Long id;
+    private Integer id;
 
     @Column
     private String item;
@@ -23,7 +23,7 @@ public class ItemEntity {
     @Column
     private String item_name;
 
-    public ItemEntity(Long id, String item, String itemName) {
+    public ItemEntity(Integer id, String item, String itemName) {
         this.id = id;
         this.item = item;
         this.item_name = itemName;

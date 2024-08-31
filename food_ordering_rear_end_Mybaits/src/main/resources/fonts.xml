@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+<fontFamily name="教育部楷書字型">
+    <normal>static/educbkbd.ttf</normal>
+    <bold>static/educbkbd.ttf</bold>
+    <italic>static/educbkbd.ttf</italic>
+    <boldItalic>static/educbkbd.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+    <exportFonts>
+        <export key="net.sf.jasperreports.html">'教育部楷書字型', Arial, Helvetica, sans-serif</export>
+        <export key="net.sf.jasperreports.xhtml">'教育部楷書字型', Arial, Helvetica, sans-serif</export>
+    </exportFonts>
+</fontFamily>
+</fontFamilies>

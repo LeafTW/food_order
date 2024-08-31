@@ -18,6 +18,7 @@ public interface MealsRepository extends JpaRepository<MealsEntity, Long> {
      * item join meals query
      **/
     @Query("SELECT i FROM ItemEntity i JOIN MealsEntity m ON i.item = m.item ")
+//    @Query(value = "select * from item " ,nativeQuery=true)//nativeQuery宣告使用sql語法查找
     public List<ItemEntity> findItemWithCount();
 
     /**

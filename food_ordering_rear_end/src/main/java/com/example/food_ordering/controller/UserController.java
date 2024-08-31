@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/userController")
-@CrossOrigin(maxAge = 3600, allowedHeaders = "*")//開放外部ip讀取資料權限
+@CrossOrigin(maxAge = 3000, allowedHeaders = "*")//開放外部ip讀取資料權限
 public class UserController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class UserController {
      * 檢查登入
      */
     @PostMapping("/LoginUser")
-    public ResponseEntity<?> LoginUser(@RequestBody UserEntity user) throws ActionException {
+    public ResponseEntity<?> loginUser(@RequestBody UserEntity user) throws ActionException {
         UserEntity getuser = userService.getUser(user);
         HttpSession session = request.getSession();
 //            response. setHeader ("Access-Control-Allow-Origin", "http://localhost:8080");
